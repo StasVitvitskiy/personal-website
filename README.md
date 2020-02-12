@@ -1,1 +1,1 @@
-# resume
+# https://stasvitvitskiy.github.io/resume
