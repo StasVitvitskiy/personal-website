@@ -3,6 +3,8 @@ import { fetchPageContent } from "~/builder.io/fetchPageContent";
 import { Await, useLoaderData } from "@remix-run/react";
 import { Suspense } from "react";
 import { BuilderPage } from "~/builder.io/BuilderPage";
+import { ThrowError } from "~/errorHandling/ThrowError";
+import { VividSpinner } from "~/loading/VividSpinner";
 
 export function loader({ request }: LoaderArgs) {
   const url = new URL(request.url);
@@ -11,12 +13,15 @@ export function loader({ request }: LoaderArgs) {
   });
 }
 
-export default function Index() {
+export default function BuilderPageRoot() {
   const data = useLoaderData<typeof loader>();
 
   return (
-    <Suspense fallback={<p>Loading page...</p>}>
-      <Await resolve={data.content} errorElement={<p>Page not found!</p>}>
+    <Suspense fallback={<VividSpinner />}>
+      <Await
+        resolve={data.content}
+        errorElement={<ThrowError msg="Builder.io render error" />}
+      >
         {(content) => <BuilderPage content={content} />}
       </Await>
     </Suspense>

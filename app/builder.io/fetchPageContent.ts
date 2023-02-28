@@ -1,11 +1,9 @@
-import builder from "@builder.io/react";
+import { initializeBuilder } from "./initializeBuilder";
 
-const initPromise = Promise.resolve(
-  builder.init(process.env.BUILDER_IO_KEY as string)
-);
+const initPromise = Promise.resolve(initializeBuilder());
 
 export async function fetchPageContent(pathname: string) {
-  return initPromise.then(() => {
+  return initPromise.then((builder) => {
     return builder
       .get("page", {
         url: pathname,
