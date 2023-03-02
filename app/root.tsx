@@ -8,6 +8,7 @@ import {
   ScrollRestoration,
   useLoaderData,
 } from "@remix-run/react";
+import pick from "lodash/pick";
 
 import documentStyles from "~/document/document.css";
 import vividSpinnerStyles from "~/loading/vividSpinner.css";
@@ -54,17 +55,15 @@ export default function App() {
         <Links />
       </head>
       <body>
-        {data.ENV.NODE_ENV === "development" && (
-          <script
-            dangerouslySetInnerHTML={{
-              __html: `
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
                 window.process = {
-                  env: ${JSON.stringify(data.ENV)}
+                  env: ${JSON.stringify(pick(data.ENV, "BUILDER_IO_KEY"))}
                 }
               `,
-            }}
-          />
-        )}
+          }}
+        />
         <Outlet />
         <ScrollRestoration />
         <Scripts />
