@@ -6,6 +6,7 @@ export async function fetchPageContent(pathname: string) {
   return builder
     .get("page", {
       url: pathname,
+      prerender: true,
     })
     .promise();
 }
