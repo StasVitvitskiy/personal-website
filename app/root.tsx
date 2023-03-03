@@ -1,4 +1,4 @@
-import { json, MetaFunction } from "@remix-run/node";
+import { json, MetaFunction, V2_MetaFunction } from "@remix-run/node";
 import {
   Links,
   LiveReload,
@@ -16,6 +16,10 @@ import { ServerErrorPage } from "~/errorHandling/serverError/ServerError";
 
 export function links() {
   return [
+    {
+      rel: "stylesheet",
+      href: "https://fonts.googleapis.com/css?family=Poppins%3A100%2C100italic%2C200%2C200italic%2C300%2C300italic%2C400%2C400italic%2C500%2C500italic%2C600%2C600italic%2C700%2C700italic%2C800%2C800italic%2C900%2C900italic%7CRoboto+Mono%3A100%2C100italic%2C200%2C200italic%2C300%2C300italic%2C400%2C400italic%2C500%2C500italic%2C600%2C600italic%2C700%2C700italic%2C800%2C800italic%2C900%2C900italic&display=swap",
+    },
     { rel: "stylesheet", href: documentStyles },
     { rel: "stylesheet", href: vividSpinnerStyles },
     {
@@ -39,11 +43,12 @@ export function links() {
   ];
 }
 
-export const meta: MetaFunction = () => ({
-  charset: "utf-8",
-  title: "New Remix App",
-  viewport: "width=device-width,initial-scale=1",
-});
+export const meta: V2_MetaFunction = () => [
+  {
+    charset: "utf-8",
+    viewport: "width=device-width,initial-scale=1",
+  },
+];
 
 export default function App() {
   const data = useLoaderData<typeof loader>();
