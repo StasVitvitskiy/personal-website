@@ -11,6 +11,7 @@ export async function loader({ request }: LoaderArgs) {
     content: page,
     title: page?.data?.title as string,
     description: page?.data?.description as string,
+    url,
   };
 }
 
@@ -24,5 +25,5 @@ export const meta: V2_MetaFunction<typeof loader> = ({ data }): {}[] => {
 export default function BuilderPageRoot() {
   const data = useLoaderData<typeof loader>();
 
-  return <BuilderPage content={data.content} />;
+  return <BuilderPage url={data.url} content={data.content} />;
 }

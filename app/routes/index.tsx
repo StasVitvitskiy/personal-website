@@ -4,12 +4,14 @@ import { useLoaderData } from "@remix-run/react";
 import { BuilderPage } from "~/builder.io/BuilderPage";
 
 export async function loader() {
-  const page = await fetchPageContent("/personal-website-main");
+  const url = "/personal-website-main";
+  const page = await fetchPageContent(url);
 
   return {
     content: page,
     title: page?.data?.title as string,
     description: page?.data?.description as string,
+    url,
   };
 }
 
@@ -23,5 +25,5 @@ export const meta: V2_MetaFunction<typeof loader> = ({ data }): {}[] => {
 export default function IndexPageRoot() {
   const data = useLoaderData<typeof loader>();
 
-  return <BuilderPage content={data.content} />;
+  return <BuilderPage url={data.url} content={data.content} />;
 }
