@@ -1,4 +1,4 @@
-import { json, MetaFunction, V2_MetaFunction } from "@remix-run/node";
+import { json, V2_MetaFunction } from "@remix-run/node";
 import {
   Links,
   LiveReload,
